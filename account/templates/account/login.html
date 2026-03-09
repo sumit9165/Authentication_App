@@ -1,0 +1,47 @@
+{% extends "account/base.html" %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-center px-4 py-8">
+    <div class="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-md">
+        <h2 class="text-2xl text-center font-bold">Login to Your account</h2>
+        <form method="POSt" action="" class="space-y-6" novalidate>
+        {% csrf_token %}
+        <!-- Email field-->
+            <div>
+                <label for="email" class="block text-sm font-medium">Email</label>
+                <input type="email" name="email" id="email" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm bg-gray-700 p-2" placeholder="your@email.com" required>
+            </div>
+        <!-- Password field-->
+            <div>
+                <label for="password" class="block text-sm font-medium">Password</label>
+                <input type="password" name="password" id="password" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm bg-gray-700 p-2" placeholder="*********" required>
+            </div>
+        <!-- Forget Password Link-->
+        <div class="text-right">
+            <a href="{% url 'password_reset' %}" class="text-sm text-rose-400 hover:underline">Forget Password</a>
+        </div>
+
+        <!-- Login Button -->
+            <button type="submit" class=" w-full px-4 py-2 text-white bg-rose-600 rounded-md hover:bg-rose-700 focus:outline-none focus:bg-rose-700">Sign in</button>
+        </form>
+
+        <!-- Divider -->
+        <div class="relative mt-6">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+            </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-gray-800 text-gray-400">Or</span>
+                </div>
+            </div>
+
+
+        <!-- Create Account Link -->
+        <div class="text-center">
+            <a href="{% url 'register' %}" class="text-sm text-rose-400 hover:underline">Create an account</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
