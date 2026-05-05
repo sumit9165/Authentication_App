@@ -36,3 +36,89 @@ Thumbs.db
 
 .vscode/
 .idea/
+
+# Byte-compiled / optimized / DLL files
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# C extensions
+
+*.so
+
+# Django stuff
+
+*.log
+*.pot
+*.pyc
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Environment variables (CRITICAL: never commit secrets)
+
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+
+venv/
+env/
+ENV/
+.venv/
+
+# Pip / build
+
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Installer logs
+
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+
+# mypy / type check
+
+.mypy_cache/
+.dmypy.json
+
+# IDE / editor
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# Docker override / local dev
+
+docker-compose.override.yml
+
+# Gunicorn / runtime
+
+gunicorn.pid
+
+# Celery (if added later)
+
+celerybeat-schedule
+celerybeat.pid
+
