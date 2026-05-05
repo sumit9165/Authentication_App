@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: django_sqlite_app
+    restart: always
+    command: >
+      sh -c "
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      gunicorn Authentication_App.wsgi:application --bind 0.0.0.0:8000
+      "
+    volumes:
+      - sqlite_data:/app/db
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+volumes:
+  sqlite_data:
+
