@@ -1,0 +1,72 @@
+venv/
+__pycache__/
+*.pyc
+.git
+.gitignore
+.env
+
+# Git
+
+.git
+.gitignore
+
+# Python cache
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# Virtual environments (never copy into image)
+
+venv/
+env/
+.venv/
+
+# Environment files (do NOT bake secrets into images)
+
+.env
+.env.*
+
+# Local database (don’t bake SQLite into image)
+
+db.sqlite3
+db.sqlite3-journal
+
+# Media / user uploads (should be volume or external storage)
+
+media/
+
+# Staticfiles (will be collected inside container)
+
+staticfiles/
+
+# Logs
+
+*.log
+
+# Tests / docs (optional)
+
+tests/
+docs/
+
+# Build artifacts
+
+build/
+dist/
+*.egg-info/
+
+# IDE
+
+.vscode/
+.idea/
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# Docker compose files (not needed inside image)
+
+docker-compose.yml
+docker-compose.override.yml
+
