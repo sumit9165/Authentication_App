@@ -6,3 +6,4 @@ pyclean==3.5.0
 python-dotenv==1.2.2
 sqlparse==0.5.4
 tzdata==2025.3
+gunicorn
