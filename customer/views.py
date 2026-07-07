@@ -16,7 +16,9 @@ class CustomerDashboardView(LoginRequiredMixin, View, IsCustomerMixin):
 
 
 # type: ignore
-class CustomerPasswordChangeView(PasswordChangeView, LoginRequiredMixin, IsCustomerMixin):
+class CustomerPasswordChangeView(
+    PasswordChangeView, LoginRequiredMixin, IsCustomerMixin
+):
     template_name = "customer/password_change.html"
     success_url = reverse_lazy("login")
 

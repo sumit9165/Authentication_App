@@ -74,7 +74,11 @@ class IsCustomerMixin(UserPassesTestMixin):
 
     def test_func(self):
         # type: ignore
-        return self.request.user.is_authenticated and hasattr(self.request.user, "is_customer") and self.request.user.is_customer
+        return (
+            self.request.user.is_authenticated
+            and hasattr(self.request.user, "is_customer")
+            and self.request.user.is_customer
+        )
 
     def handle_no_permission(self):  # type: ignore
         if self.request.user.is_authenticated:  # type: ignore
@@ -86,7 +90,11 @@ class IsSellerMixin(UserPassesTestMixin):
 
     def test_func(self):
         # type: ignore
-        return self.request.user.is_authenticated and hasattr(self.request.user, "is_seller") and self.request.user.is_seller
+        return (
+            self.request.user.is_authenticated
+            and hasattr(self.request.user, "is_seller")
+            and self.request.user.is_seller
+        )
 
     def handle_no_permission(self):  # type: ignore
         if self.request.user.is_authenticated:  # type: ignore
