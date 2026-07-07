@@ -1,14 +1,9 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
 
-from account.views import (
-    CustomPasswordResetView,
-    HomeView,
-    LoginView,
-    PasswordResetConfirmView,
-    RegistrationView,
-    activate_account,
-)
+from account.views import (CustomPasswordResetView, HomeView, LoginView,
+                           PasswordResetConfirmView, RegistrationView,
+                           activate_account)
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
