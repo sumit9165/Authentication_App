@@ -100,3 +100,4 @@ class IsSellerMixin(UserPassesTestMixin):
         if self.request.user.is_authenticated: # type: ignore
             return HttpResponseForbidden(erro_403_html)
         return redirect('login')
+    
