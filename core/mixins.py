@@ -1,9 +1,6 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.http import HttpResponseForbidden
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import redirect
-
-
 
 erro_403_html = """
 
@@ -73,31 +70,25 @@ erro_403_html = """
 """
 
 
-
-
-
-
-
-
-
 class IsCustomerMixin(UserPassesTestMixin):
-    def test_func(self):
-        return self.request.user.is_authenticated and hasattr(self.request.user, 'is_customer') and self.request.user.is_customer # type: ignore
-    
 
-    def handle_no_permission(self): # type: ignore
-        if self.request.user.is_authenticated: # type: ignore
+    def test_func(self):
+        # type: ignore
+        return self.request.user.is_authenticated and hasattr(self.request.user, "is_customer") and self.request.user.is_customer
+
+    def handle_no_permission(self):  # type: ignore
+        if self.request.user.is_authenticated:  # type: ignore
             return HttpResponseForbidden(erro_403_html)
-        return redirect('login')
-    
+        return redirect("login")
+
 
 class IsSellerMixin(UserPassesTestMixin):
-    def test_func(self):
-        return self.request.user.is_authenticated and hasattr(self.request.user, 'is_seller') and self.request.user.is_seller # type: ignore
-    
 
-    def handle_no_permission(self): # type: ignore
-        if self.request.user.is_authenticated: # type: ignore
+    def test_func(self):
+        # type: ignore
+        return self.request.user.is_authenticated and hasattr(self.request.user, "is_seller") and self.request.user.is_seller
+
+    def handle_no_permission(self):  # type: ignore
+        if self.request.user.is_authenticated:  # type: ignore
             return HttpResponseForbidden(erro_403_html)
-        return redirect('login')
-    
+        return redirect("login")
