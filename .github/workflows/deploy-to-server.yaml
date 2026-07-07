@@ -1,0 +1,57 @@
+name: Deploy to Server
+
+on:
+    push:
+        branches:
+            - main
+    workflow_call:
+   
+jobs: 
+    deploy:
+        runs-on: ubuntu-latest
+        env:
+            DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+            DOCKER_TAG: ${{ github.event.workflow_run.head_sha }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: set docker tag environment variable
+              run: echo "DOCKER_TAG=${{ github.event.workflow_run.head_sha }}" >> $GITHUB_ENV
+
+            - name: SSh to server
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{ secrets.EC2_SSH_HOST }}
+                username: ${{ secrets.EC2_SSH_USER }}
+                key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+                script: |
+                    echo "Starting deployment..."
+                    mkdir -p devops
+
+            - name: Copy docker compose file
+              uses: appleboy/scp-action@v0.1.3
+              with:
+                host: ${{ secrets.EC2_SSH_HOST }}
+                username: ${{ secrets.EC2_SSH_USER }}
+                key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+                source: docker-compose.yml
+                target: ~/devops
+                
+            - name: SSh to server
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{ secrets.EC2_SSH_HOST }}
+                username: ${{ secrets.EC2_SSH_USER }}
+                key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+                script: |
+                    echo "App Running"
+                    sudo apt-get update && sudo apt-get install -y docker.io docker-compose-v2
+                    sudo usermod -aG docker $USER
+                    newgrp docker
+                    echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ vars.DOCKERHUB_USERNAME }} --password-stdin
+                    export DOCKERHUB_USERNAME=${{ vars.DOCKERHUB_USERNAME }}
+                    export DOCKER_TAG=${{ github.sha }}
+                    echo $DOCKER_TAG
+                    sudo chmod 666 /var/run/docker.sock
+                    cd devops && docker compose down -v &&docker compose up -d --build --force-recreate --pull always

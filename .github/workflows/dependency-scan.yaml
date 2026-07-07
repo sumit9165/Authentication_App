@@ -1,0 +1,32 @@
+name: Dependency Scan
+
+on:
+    push:
+        branches:
+            - main
+    workflow_call:
+
+jobs:
+    dependency-scan:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.14"
+
+            - name: Install audit dependencies
+              run: pip install pip-audit safety
+
+            - name: Run pip-audit
+              run: pip-audit --output-format=table
+
+            - name: Run Safety
+              run: safety check --full-report
+
+            
+
+            
