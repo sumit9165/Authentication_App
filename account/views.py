@@ -92,7 +92,7 @@ class RegistrationView(FormView):
         uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
         activation_link = reverse('activate', kwargs={'uidb64':uidb64, 'token':token})
-        activation_url = f'{settings.SITE_DOMAIN} {activation_link}'
+        activation_url = f'{settings.SITE_DOMAIN}{activation_link}'
         send_activation_email(user.email, activation_url)
         messages.success(self.request, 'Registration successful! Please check your email inbox/spam to activate your account.')
         return redirect('login')
