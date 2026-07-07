@@ -1,5 +1,3 @@
-from dataclasses import field
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -56,7 +54,8 @@ class LoginView(View):
         if user is not None:
             if not user.is_active:
                 messages.error(
-                    request, "Your account is inactive. Please activate your account."
+                    request,
+                    "Your account is inactive. Please activate your account.",
                 )
                 return redirect("login")
 
@@ -94,7 +93,9 @@ class RegistrationView(FormView):
         # Send Account Activation Email
         uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
-        activation_link = reverse("activate", kwargs={"uidb64": uidb64, "token": token})
+        activation_link = reverse(
+            "activate", kwargs={"uidb64": uidb64, "token": token}
+        )
         activation_url = f"{settings.SITE_DOMAIN}{activation_link}"
         send_activation_email(user.email, activation_url)
         messages.success(
@@ -112,18 +113,24 @@ def activate_account(request, uidb64, token):  # type: ignore
         # Check the token for one-time use and if the account is already active
         if user.is_active:
             # type: ignore
-            messages.warning(request, "This account has already been activated.")
+            messages.warning(
+                request, "This account has already been activated."
+            )
             return redirect("account:login")
 
         if default_token_generator.check_token(user, token):
             user.is_active = True  # Activate the account
             user.save()  # Save the updated user
             # type: ignore
-            messages.success(request, "Your account has been activated successfully!")
+            messages.success(
+                request, "Your account has been activated successfully!"
+            )
             return redirect("login")
         else:
             # type: ignore
-            messages.error(request, "The activation link is invalid or has expired.")
+            messages.error(
+                request, "The activation link is invalid or has expired."
+            )
             return redirect("login")
 
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
@@ -135,7 +142,9 @@ class CustomPasswordResetView(FormView):
     template_name = "account/password_reset.html"
     form_class = PasswordResetForm
     success_url = reverse_lazy("login")
-    success_message = "We have sent you a password reset link. Please check your email."
+    success_message = (
+        "We have sent you a password reset link. Please check your email."
+    )
 
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
@@ -177,10 +186,14 @@ class PasswordResetConfirmView(View):
                     {"form": form, "uidb64": uidb64, "token": token},
                 )
             else:
-                messages.error(request, ("This link has expired or is invalid."))
+                messages.error(
+                    request, ("This link has expired or is invalid.")
+                )
                 return redirect("password_reset")
         except Exception:
-            messages.error(request, ("An error occurred. Please try again later."))
+            messages.error(
+                request, ("An error occurred. Please try again later.")
+            )
             return redirect("password_reset")
 
     def post(self, request, uidb64, token, *args, **kwargs):
@@ -210,8 +223,12 @@ class PasswordResetConfirmView(View):
                         {"form": form, "uidb64": uidb64, "token": token},
                     )
             else:
-                messages.error(request, ("This link has expired or is invalid."))
+                messages.error(
+                    request, ("This link has expired or is invalid.")
+                )
                 return redirect("password_reset")
         except Exception:
-            messages.error(request, ("An error occurred. Please try again later."))
+            messages.error(
+                request, ("An error occurred. Please try again later.")
+            )
             return redirect("password_reset")
