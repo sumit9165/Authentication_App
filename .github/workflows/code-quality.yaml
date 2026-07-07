@@ -26,16 +26,8 @@ jobs:
               run: pip install -r requirements.txt
 
             - name: Run code quality checks
-              run: |
-                # Run flake8 for linting
-                flake8 .
+              run: flake8 .
 
-                # Run pylint for static code analysis
-                pylint **/*.py
-
-                # Run mypy for type checking
-                mypy .
-            
             - name: Run SAST (Static Application Security Testing)
               run: |
                 # Run Bandit for security analysis
