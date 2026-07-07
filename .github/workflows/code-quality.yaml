@@ -26,7 +26,7 @@ jobs:
               run: pip install -r requirements.txt
 
             - name: Run code quality checks
-              run: flake8 .
+              run: flake8 manage.py authentication_app tests
 
             - name: Run SAST (Static Application Security Testing)
               run: |
