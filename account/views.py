@@ -102,13 +102,8 @@ class RegistrationView(FormView):
         send_activation_email(user.email, activation_url)
         messages.success(
             self.request,
-<<<<<<< HEAD
-            "Registration successful!" 
-            "Please check your email inbox/spam to activate your account.",
-=======
             "Registration successful! Please check your email "
             "inbox/spam to activate your account.",
->>>>>>> 5663e60f79fbfcf84d03e1f69466a752729cfb63
         )
         return redirect("login")
 
@@ -172,12 +167,9 @@ class CustomPasswordResetView(FormView):
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
         reset_url = reverse_lazy(
-<<<<<<< HEAD
-            "password_reset_confirm", kwargs={"uidb64": uid, "token": token}
-=======
+
             "password_reset_confirm",
             kwargs={"uidb64": uid, "token": token},
->>>>>>> 5663e60f79fbfcf84d03e1f69466a752729cfb63
         )
         return f"{self.request.build_absolute_uri(reset_url)}"
 
