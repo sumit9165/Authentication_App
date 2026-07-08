@@ -22,7 +22,7 @@ jobs:
               run: pip install pip-audit safety
 
             - name: Run pip-audit
-              run: pip-audit --output-format=table
+              run: pip-audit
 
             - name: Run Safety
               run: safety check --full-report
