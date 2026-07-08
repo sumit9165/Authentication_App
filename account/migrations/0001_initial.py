@@ -28,7 +28,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "last_login",
-                    models.DateTimeField(blank=True, null=True, verbose_name="last login"),
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
                 ),
                 ("email", models.EmailField(max_length=255, unique=True)),
                 ("name", models.CharField(max_length=255)),

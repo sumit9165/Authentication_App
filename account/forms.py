@@ -50,5 +50,7 @@ class PasswordResetForm(forms.Form):
 
         # Check if user with this email exists
         if not User.objects.filter(email=email).exists():
-            raise forms.ValidationError(("No account is associated with email address."))
+            raise forms.ValidationError(
+                ("No account is associated with email address.")
+            )
         return email

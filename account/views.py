@@ -72,7 +72,9 @@ class LoginView(View):
             elif user.is_customer:  # type: ignore
                 return redirect("customer_dashboard")
             else:
-                messages.error(request, "You do not have permission to access this area.")
+                messages.error(
+                    request, "You do not have permission to access this area."
+                )
                 return redirect("home")
         else:
             messages.error(request, "Invalid email or password.")
@@ -97,7 +99,8 @@ class RegistrationView(FormView):
         send_activation_email(user.email, activation_url)
         messages.success(
             self.request,
-            "Registration successful! Please check your email inbox/spam to activate your account.",
+            "Registration successful!" 
+            "Please check your email inbox/spam to activate your account.",
         )
         return redirect("login")
 
@@ -152,7 +155,9 @@ class CustomPasswordResetView(FormView):
     def get_reset_url(self, user):
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
-        reset_url = reverse_lazy("password_reset_confirm", kwargs={"uidb64": uid, "token": token})
+        reset_url = reverse_lazy(
+            "password_reset_confirm", kwargs={"uidb64": uid, "token": token}
+        )
         return f"{self.request.build_absolute_uri(reset_url)}"
 
 
@@ -190,7 +195,9 @@ class PasswordResetConfirmView(View):
 
                 if form.is_valid():
                     form.save()
-                    messages.success(request, ("Your Password has been successfully reset."))
+                    messages.success(
+                        request, ("Your Password has been successfully reset.")
+                    )
                     return redirect("login")
                 else:
                     # If form is not valid, add errors to the message framework
