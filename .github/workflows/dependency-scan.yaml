@@ -25,7 +25,7 @@ jobs:
               run: pip-audit
 
             - name: Run Safety
-              run: safety scan --full-report
+              run: safety check --full-report
 
             
 
