@@ -6,14 +6,15 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        git \
+        curl && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 
-RUN pip install --upgrade pip \
-    && pip install --prefix=/install -r requirements.txt
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 
 # ---------- Runtime ----------
@@ -31,10 +32,8 @@ COPY --from=builder /install /usr/local
 COPY . .
 
 # Create non-root user
-RUN useradd -m appuser
-
-# Fix permissions for SQLite
-RUN chown -R appuser:appuser /app
+RUN useradd -m appuser && \
+    chown -R appuser:appuser /app
 
 USER appuser
 

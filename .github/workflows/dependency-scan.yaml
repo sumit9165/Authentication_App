@@ -24,15 +24,5 @@ jobs:
             - name: Run pip-audit
               run: pip-audit
 
-            # - name: Run Safety
-            #   run: safety check --full-report
-
-            - name: Install Safety
-              run: pip install --upgrade safety
-
-            - name: Run Safety scan
-              run: safety scan
-
-            
-
-            
+            - name: Run Safety
+              run: safety check --full-report
