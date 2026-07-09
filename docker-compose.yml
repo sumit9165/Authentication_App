@@ -1,6 +1,6 @@
 services:
   web:
-    image: ${DOCKERHUB_USERNAME}/authentication_app:${DOCKER_TAG}
+    image: ${DOCKERHUB_USERNAME}/authentication_app:latest
     # build: 
     #   context: .
     #   dockerfile: Dockerfile
