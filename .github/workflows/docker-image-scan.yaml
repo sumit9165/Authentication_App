@@ -31,7 +31,8 @@ jobs:
               uses: aquasecurity/trivy-action@v0.35.0
               with:
                 image-ref: authentication_app:latest
-                severity: CRITICAL
+                severity: CRITICAL,HIGH
+                ignore-unfixed: true
                 exit-code: 1
 
             - name: Tag image
