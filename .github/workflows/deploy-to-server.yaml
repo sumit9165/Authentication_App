@@ -14,7 +14,7 @@ jobs:
             DOCKER_TAG: ${{ github.event.workflow_run.head_sha }}
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: set docker tag environment variable
               run: echo "DOCKER_TAG=${{ github.event.workflow_run.head_sha }}" >> $GITHUB_ENV
