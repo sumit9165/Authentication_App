@@ -1,8 +1,9 @@
 services:
   web:
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    image: ${DOCKER_USERNAME}/authentication_app:latest
+    # build: 
+    #   context: .
+    #   dockerfile: Dockerfile
     container_name: django_sqlite_app
     restart: always
     command: >
