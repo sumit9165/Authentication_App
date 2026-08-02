@@ -1,9 +1,9 @@
 name: Deploy to Server
 
 on:
-    push:
-        branches:
-            - main
+    # push:
+    #     branches:
+    #         - main
     workflow_call:
 
 jobs: 
