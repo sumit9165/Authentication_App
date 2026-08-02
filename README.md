@@ -27,8 +27,8 @@ python --version
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/sumit9165/Authentication_app.git
-cd authentication_app
+git clone https://github.com/sumit9165/Authentication_App.git
+cd Authentication_App
 ```
 
 ---
