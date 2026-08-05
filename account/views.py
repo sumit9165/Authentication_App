@@ -90,6 +90,13 @@ class RegistrationView(FormView):
         user = form.save(commit=False)
         user.set_password(form.cleaned_data["password"])
         user.is_active = False  # Account inactive until email is verified.
+        role = form.cleaned_data["role"]
+        if role == "seller":
+            user.is_seller = True
+            user.is_customer = False
+        else:
+            user.is_seller = False
+            user.is_customer = True
         user.save()
 
         # Send Account Activation Email
